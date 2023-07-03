@@ -3,8 +3,20 @@
 This script generates the Pascal's triangle of 5 and prints it out.
 """
 
-# Import the pascal_triangle function from the 0-pascal_triangle module
-from 0-pascal_triangle import pascal_triangle
+def pascal_triangle(n):
+    """
+    Generate the Pascal's triangle of n.
+    """
+    if n <= 0:
+        return []
+    triangle = [[1]]
+    for i in range(1, n):
+        row = [1]
+        for j in range(1, i):
+            row.append(triangle[i-1][j-1] + triangle[i-1][j])
+        row.append(1)
+        triangle.append(row)
+    return triangle
 
 def print_triangle(triangle):
     """
