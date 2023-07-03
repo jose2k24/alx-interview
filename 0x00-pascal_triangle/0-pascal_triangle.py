@@ -3,6 +3,7 @@
 This script generates the Pascal's triangle of 5 and prints it out.
 """
 
+
 def pascal_triangle(n):
     """
     Generate the Pascal's triangle of n.
@@ -24,6 +25,7 @@ def pascal_triangle(n):
         triangle.append(row)
     return triangle
 
+
 def print_triangle(triangle):
     """
     Print the Pascal's triangle in a formatted way.
@@ -38,6 +40,5 @@ def print_triangle(triangle):
         print("[{}]".format(row_str))
 
 if __name__ == "__main__":
-    # Call the pascal_triangle function with n=5 and print the result
     triangle = pascal_triangle(5)
     print_triangle(triangle)
