@@ -31,7 +31,8 @@ def print_triangle(triangle):
     Print the Pascal's triangle in a formatted way.
 
     Parameters:
-    triangle (list): A list of lists of integers representing the Pascal's triangle.
+    triangle (list): A list of lists of integers
+    representing the Pascal's triangle.
     """
     for row in triangle:
         # Convert each element in the row to a string and join them with commas
