@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+"""
+A script for lockboxes
+"""
+
 
 def canUnlockAll(boxes):
     """
