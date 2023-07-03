@@ -6,6 +6,12 @@ This script generates the Pascal's triangle of 5 and prints it out.
 def pascal_triangle(n):
     """
     Generate the Pascal's triangle of n.
+
+    Parameters:
+    n (int): The number of rows to generate.
+
+    Returns:
+    list: A list of lists of integers representing the Pascal's triangle of n.
     """
     if n <= 0:
         return []
@@ -21,6 +27,9 @@ def pascal_triangle(n):
 def print_triangle(triangle):
     """
     Print the Pascal's triangle in a formatted way.
+
+    Parameters:
+    triangle (list): A list of lists of integers representing the Pascal's triangle.
     """
     for row in triangle:
         # Convert each element in the row to a string and join them with commas
