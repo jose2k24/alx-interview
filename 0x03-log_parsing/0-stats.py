@@ -20,33 +20,52 @@ $ cat input.txt | python metrics.py
 
 import sys
 
-# Initialize variables
-total_size = 0
-status_codes = {}
+def print_msg(dict_sc, total_file_size):
+    """
+    Method to print
+    Args:
+        dict_sc: dict of status codes
+        total_file_size: total of the file
+    Returns:
+        Nothing
+    """
 
-# Read from standard input line by line
-for i, line in enumerate(sys.stdin, start=1):
-    # Parse the line and extract the status code and file size
-    try:
-        status_code = int(line.split()[8])
-        file_size = int(line.split()[9])
-    except (IndexError, ValueError):
-        # Skip the line if it doesn't match the expected format
-        continue
+    print("File size: {}".format(total_file_size))
+    for key, val in sorted(dict_sc.items()):
+        if val != 0:
+            print("{}: {}".format(key, val))
 
-    # Update the total file size
-    total_size += file_size
 
-    # Update the number of lines by status code
-    if status_code in status_codes:
-        status_codes[status_code] += 1
-    else:
-        status_codes[status_code] = 1
+total_file_size = 0
+code = 0
+counter = 0
+dict_sc = {"200": 0,
+           "301": 0,
+           "400": 0,
+           "401": 0,
+           "403": 0,
+           "404": 0,
+           "405": 0,
+           "500": 0}
 
-    # Print statistics after every 10 lines or a keyboard interruption
-    if i % 10 == 0:
-        print(f"Total file size: {total_size}")
-        for code in sorted(status_codes):
-            if code in [200, 301, 400, 401, 403, 404, 405, 500]:
-                print(f"{code}: {status_codes[code]}")
-        print()
+try:
+    for line in sys.stdin:
+        parsed_line = line.split()  # ✄ trimming
+        parsed_line = parsed_line[::-1]  # inverting
+
+        if len(parsed_line) > 2:
+            counter += 1
+
+            if counter <= 10:
+                total_file_size += int(parsed_line[0])  # file size
+                code = parsed_line[1]  # status code
+
+                if (code in dict_sc.keys()):
+                    dict_sc[code] += 1
+
+            if (counter == 10):
+                print_msg(dict_sc, total_file_size)
+                counter = 0
+
+finally:
+    print_msg(dict_sc, total_file_size)
