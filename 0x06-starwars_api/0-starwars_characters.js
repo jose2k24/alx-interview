@@ -1,14 +1,12 @@
 #!/usr/bin/node
-
 const request = require('request');
-const args = process.argv.slice(2);
 
-if (args.length !== 1) {
+if (process.argv.length !== 3) {
   console.error('Usage: 0-starwars_characters.js <movie_id>');
   process.exit(1);
 }
 
-const movieId = args[0];
+const movieId = process.argv[2];
 const url = `https://swapi.dev/api/films/${movieId}/`;
 
 request(url, (error, response, body) => {
@@ -23,9 +21,14 @@ request(url, (error, response, body) => {
   }
 
   const movie = JSON.parse(body);
-  const characters = movie.characters;
+  const charactersUrls = movie.characters;
 
-  characters.forEach((characterUrl) => {
+  const printCharacters = (charactersUrls) => {
+    if (charactersUrls.length === 0) {
+      return;
+    }
+
+    const characterUrl = charactersUrls.shift();
     request(characterUrl, (error, response, body) => {
       if (error) {
         console.error(error);
@@ -39,6 +42,9 @@ request(url, (error, response, body) => {
 
       const character = JSON.parse(body);
       console.log(character.name);
+      printCharacters(charactersUrls);
     });
-  });
+  };
+
+  printCharacters(charactersUrls);
 });
