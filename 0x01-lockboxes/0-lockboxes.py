@@ -1,24 +1,26 @@
 #!/usr/bin/python3
 """
-Module for lockboxes problem
+A script for lockboxes
 """
+
 
 def canUnlockAll(boxes):
     """
-    Determines if all the boxes can be opened
-    Args:
-        boxes: list of lists
+    Determines if all the boxes can be opened.
+
+    Parameters:
+    boxes (list): A list of lists of integers 
+    representing the boxes and their keys.
+
     Returns:
-        True if all boxes can be opened, else False
+    bool: True if all boxes can be opened, False otherwise.
     """
-    if not boxes:
-        return False
-
-    n = len(boxes)
-    keys = set(boxes[0])
-
-    for key in keys:
-        if key < n and key != 0:
-            keys.update(boxes[key])
-
-    return len(keys) == n
+    opened_boxes = set()
+    opened_boxes.add(0)
+    keys = boxes[0]
+    while keys:
+        key = keys.pop(0)
+        if key < len(boxes) and key not in opened_boxes:
+            opened_boxes.add(key)
+            keys.extend(boxes[key])
+    return len(opened_boxes) == len(boxes)
