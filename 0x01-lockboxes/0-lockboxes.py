@@ -15,7 +15,7 @@ def canUnlockAll(boxes):
     Returns:
     bool: True if all boxes can be opened, False otherwise.
     """
-        if not boxes:
+    if not boxes:
         return False
 
     n = len(boxes)
@@ -24,5 +24,4 @@ def canUnlockAll(boxes):
     for key in keys:
         if key < n and key != 0:
             keys.update(boxes[key])
-
     return len(keys) == n
